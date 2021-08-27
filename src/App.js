@@ -9,6 +9,7 @@ import Categorias from './pages/categorias';
 import ProductoDetalle from './pages/productos-detalle';
 import Productos from './pages/productos';
 import CategoriaProductos from './pages/categorias-productos';
+import Carrito from './pages/carrito';
 
 
 function App() {
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route exact path="/categoria-producto/:id">
           <CategoriaProductos/>
+        </Route>
+        <Route exact path="/carrito">
+          <Carrito/>
         </Route>
       </Switch>
     </BrowserRouter>

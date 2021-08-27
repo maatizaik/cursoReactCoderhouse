@@ -1,5 +1,6 @@
 import{useParams, Link} from 'react-router-dom';
 import {useEffect,useState} from 'react'
+import ItemCount from '../components/itemCount';
 
 export default function ProductoDetalle(){
     const {id } = useParams();
@@ -43,6 +44,7 @@ export default function ProductoDetalle(){
                 <div style={{ border: '1px solid black', margin:'10px', padding:"20%"}}>
                     <img src={producto.image} />
                     <p>{producto.description}</p>
+                    <ItemCount stock ='5' initial ='0'/>
                 </div>
                 
             </div>
