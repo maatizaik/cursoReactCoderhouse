@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
-import {Link } from 'react-router-dom';
-import CartWidget from './cartWidget'
+import React, {useState, useContext} from 'react';
+import {Link, } from 'react-router-dom';
+import CartWidget from './cartWidget';
+
+
 
 export default function ItemCount({stock, initial}){
 
@@ -27,8 +29,6 @@ export default function ItemCount({stock, initial}){
             <button onClick={() => validarSuma()}>Agregar a carrito</button>
             <button onClick={() => validarResta()}> Quitar de Carrito </button>
         </div>
-        <button><Link to="/carrito">Terminar Compra</Link></button>
-
         </>
     )
 }

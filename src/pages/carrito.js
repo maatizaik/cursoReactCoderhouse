@@ -1,6 +1,14 @@
+import{useContext, useParams} from 'react';
+import CartContext from '../context/context';
+import {carrito} from '../pages/productos-detalle'
 
 
-export default function Carrito(){
-    return <>
-    <h1>Este es el carrito de FakeStore. Por el momento está en desarrollo la aplicación</h1></>
-    }
+export default function Carrito(carrito){
+    const {producto, setProducto}= useContext(CartContext)
+    console.log(carrito)
+        return(
+            <>
+                <h1>El carrito está vacío</h1>
+            </>
+        )
+}

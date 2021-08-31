@@ -1,12 +1,14 @@
 import{useParams, Link} from 'react-router-dom';
-import {useEffect,useState} from 'react'
+import {useEffect,useState,useContext} from 'react'
 import ItemCount from '../components/itemCount';
+import CartContext from '../context/context'
 
 export default function ProductoDetalle(){
     const {id } = useParams();
 
     const [ producto, setProducto] = useState([])
     const[loading, setLoading]= useState(false)
+    const {listaProductos, setListaProductos, carrito, setCarrito}= useContext(CartContext)
     
     const getProducto= async ()=>{
         try{
@@ -33,6 +35,12 @@ export default function ProductoDetalle(){
             <h1>Cargando...</h1>)
         }
 
+    const handleClick=()=>{
+        const carritoBorrador=[...carrito];
+        carritoBorrador.push(producto);
+        setCarrito(carritoBorrador)
+        
+    }
 
     return (
         <>
@@ -45,9 +53,13 @@ export default function ProductoDetalle(){
                     <img src={producto.image} />
                     <p>{producto.description}</p>
                     <ItemCount stock ='5' initial ='0'/>
+                    <button onCLick={handleClick}>a Carrito</button>
+                    <button><Link to="/carrito" >Terminar Compra</Link></button>
+                    <button><Link to="/productos">Continuar Comprando</Link></button>
                 </div>
                 
             </div>
+
             
     
         </>)
