@@ -8,7 +8,7 @@ export default function ProductoDetalle(){
 
     const [ producto, setProducto] = useState([])
     const[loading, setLoading]= useState(false)
-    const {listaProductos, setListaProductos, carrito, setCarrito}= useContext(CartContext)
+    const {carrito, setCarrito}= useContext(CartContext)
     
     const getProducto= async ()=>{
         try{
@@ -20,7 +20,6 @@ export default function ProductoDetalle(){
             const data= await response.json()
             setProducto(data)
             setLoading(false)
-            console.log(data)
 
         }catch(error){
             alert(error)
@@ -37,7 +36,7 @@ export default function ProductoDetalle(){
 
     const handleClick=()=>{
         const carritoBorrador=[...carrito];
-        carritoBorrador.push(producto);
+        carritoBorrador.push(producto.name)
         setCarrito(carritoBorrador)
         
     }
@@ -47,15 +46,17 @@ export default function ProductoDetalle(){
             <Link to="/productos">Volver a Productos</Link>
             <div>
                 <h1>Usted está viendo la categoría {producto.category}</h1>
-                <h3>Detalles del producto {producto.name}</h3>
+                <h2>Detalles del producto {producto.name}</h2>
                 <h3>{producto.price}</h3>
-                <div style={{ border: '1px solid black', margin:'10px', padding:"20%"}}>
-                    <img src={producto.image} />
-                    <p>{producto.description}</p>
-                    <ItemCount stock ='5' initial ='0'/>
-                    <button onCLick={handleClick}>a Carrito</button>
-                    <button><Link to="/carrito" >Terminar Compra</Link></button>
-                    <button><Link to="/productos">Continuar Comprando</Link></button>
+                <h6>El stock del producto es: {producto.id+6}</h6>
+                <div style={{ display:'flex',border: '1px solid black', margin:'10px', padding:"10%"}}>
+                    <img src={producto.image} style={{width:'25%', height:'25%'}} />
+                    <div style={{marginLeft:'12%'}}>
+                        <p style={{widht:'30%',height:'25%', marginTop:'2%'}}>{producto.description}</p>
+                        <ItemCount stock ={producto.id+6}  initial='0' />
+                        <button onCLick={handleClick}><Link to="/carrito" >Terminar Compra</Link></button>
+                        <button><Link to="/productos">Continuar Comprando</Link></button>
+                    </div>
                 </div>
                 
             </div>

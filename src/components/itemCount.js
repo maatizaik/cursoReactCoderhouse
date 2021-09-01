@@ -6,7 +6,7 @@ import CartWidget from './cartWidget';
 
 export default function ItemCount({stock, initial}){
 
-    const [count, setCount] = useState(1)
+    const [count, setCount] = useState(0)
     const validarSuma = function (){
         
         if(count<stock){
@@ -21,9 +21,9 @@ export default function ItemCount({stock, initial}){
 
     return(
         <>
-        <div>
+        <div style={{display:'flex'}}>
             <CartWidget/> 
-            <h1>En Carrito {count}</h1>
+            <h1>Enviar a Carrito {count}</h1>
         </div>
         <div>
             <button onClick={() => validarSuma()}>Agregar a carrito</button>
