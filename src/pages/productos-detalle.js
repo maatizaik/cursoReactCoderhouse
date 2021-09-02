@@ -9,6 +9,7 @@ export default function ProductoDetalle(){
     const [ producto, setProducto] = useState([])
     const[loading, setLoading]= useState(false)
     const {carrito, setCarrito}= useContext(CartContext)
+    const [items, setItems]=useState(0)
     
     const getProducto= async ()=>{
         try{
@@ -53,8 +54,8 @@ export default function ProductoDetalle(){
                     <img src={producto.image} style={{width:'25%', height:'25%'}} />
                     <div style={{marginLeft:'12%'}}>
                         <p style={{widht:'30%',height:'25%', marginTop:'2%'}}>{producto.description}</p>
-                        <ItemCount stock ={producto.id+6}  initial='0' />
-                        <button onCLick={handleClick}><Link to="/carrito" >Terminar Compra</Link></button>
+                        <ItemCount items={items} onAdd={setItems} stock ={producto.id+6}  initial='0' />
+                        {items > 0 && <button onCLick={handleClick}><Link to="/carrito" >Terminar Compra</Link></button>}
                         <button><Link to="/productos">Continuar Comprando</Link></button>
                     </div>
                 </div>

@@ -4,18 +4,16 @@ import CartWidget from './cartWidget';
 
 
 
-export default function ItemCount({stock, initial}){
-
-    const [count, setCount] = useState(0)
-    const validarSuma = function (){
-        
-        if(count<stock){
-            setCount( count +1)
+export default function ItemCount({onAdd, stock, items, initial}){
+    
+    const sumar= ()=>{
+        if( items < stock){
+            onAdd(items +1)
         }
-    }
-    const validarResta = function (){
-        if(count>initial){
-            setCount( count -1)
+    };
+    const restar= () =>{
+        if (items>initial){
+            onAdd(items -1)
         }
     }
 
@@ -23,11 +21,11 @@ export default function ItemCount({stock, initial}){
         <>
         <div style={{display:'flex'}}>
             <CartWidget/> 
-            <h1>Enviar a Carrito {count}</h1>
+            <h1>Enviar a Carrito {items}</h1>
         </div>
         <div>
-            <button onClick={() => validarSuma()}>Agregar a carrito</button>
-            <button onClick={() => validarResta()}> Quitar de Carrito </button>
+            <button onClick={sumar}>Agregar a carrito</button>
+            <button onClick={restar}> Quitar de Carrito </button>
         </div>
         </>
     )
