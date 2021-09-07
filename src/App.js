@@ -1,7 +1,8 @@
 import './App.css';
 import{BrowserRouter, Switch, Route} from 'react-router-dom';
 import NavBar from './components/navBar';
-import {CartProvider} from './context/context'
+
+
 
 
 
@@ -12,6 +13,7 @@ import Carrito from './pages/carrito';
 import ProductoDetalle from './pages/productos-detalle';
 import Productos from './pages/productos';
 import CategoriaProductos from './pages/categorias-productos';
+import { CartProvider } from './context/context';
 
 
 function App() {
@@ -40,7 +42,8 @@ function App() {
           </Route>
         </Switch>
       </BrowserRouter>
-    </CartProvider>
+      </CartProvider>
+    
     
   );
 }

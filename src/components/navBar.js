@@ -23,7 +23,7 @@ function NavBar() {
               <Link to="/categorias">Categorias</Link>
             </li>
             <li>
-                <CartWidget/>
+                <Link to="carrito"><CartWidget/></Link>
             </li>
           </ul> 
               </div>

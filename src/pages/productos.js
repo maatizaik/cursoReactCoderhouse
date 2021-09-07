@@ -12,7 +12,6 @@ export default function Productos(){
             const response = await fetch('https://fakestoreapi.com/products')
             const data= await response.json()
             setProductos(data)
-            console.log(data)
             setLoading(false)
             
 
