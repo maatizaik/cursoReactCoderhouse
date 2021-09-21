@@ -1,6 +1,10 @@
 import './App.css';
 import{BrowserRouter, Switch, Route} from 'react-router-dom';
 import NavBar from './components/navBar';
+import {collection, getDocs} from 'firebase/firestore'
+
+
+import {getData} from './firebase'
 
 
 

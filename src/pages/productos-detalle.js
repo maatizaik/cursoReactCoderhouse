@@ -1,5 +1,7 @@
 import{useParams, Link} from 'react-router-dom';
-import {useEffect,useState,useContext} from 'react'
+import {useEffect,useState} from 'react';
+import {doc, getDoc } from 'firebase/firestore';
+import {getData} from '../firebase/index';
 import ItemCount from '../components/itemCount';
 
 
@@ -12,12 +14,9 @@ export default function ProductoDetalle(){
     const getProducto= async ()=>{
         try{
             setLoading(true)
-            const response = await fetch(
-                `https://fakestoreapi.com/products/${id}`
-              );
-
-            const data= await response.json()
-            setProducto(data)
+            const productoRef = doc(getData(), "Productos", `${id}`);
+            const productoSnap = await getDoc(productoRef);
+            setProducto(productoSnap.data())
             setLoading(false)
 
         }catch(error){

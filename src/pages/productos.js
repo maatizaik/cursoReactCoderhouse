@@ -1,7 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import {useState, useEffect} from 'react';
+import {collection, getDocs} from 'firebase/firestore';
+import {getData} from '../firebase/index';
 import {Link} from 'react-router-dom'
-
 
 export default function Productos(){
     const [ productos, setProductos] = useState([])
@@ -9,9 +9,10 @@ export default function Productos(){
     const getProductos= async ()=>{
         try{
             setLoading(true)
-            const response = await fetch('https://fakestoreapi.com/products')
-            const data= await response.json()
-            setProductos(data)
+            const productsCollection = collection(getData(),'Productos');
+            const productsSnapshot = await getDocs(productsCollection);
+            const productsList = productsSnapshot.docs.map(doc => doc.data());
+            setProductos(productsList)
             setLoading(false)
             
 
