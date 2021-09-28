@@ -1,19 +1,25 @@
 import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+
+import {
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    
+  } from 'reactstrap';
 
 export default function Categorias(){
+
     const [ categorias, setCategorias] = useState([])
-    const[loading, setLoading]= useState(false)
+    
     const getCategorias= async ()=>{
         try{
-            setLoading(true)
+            
             const response = await fetch('https://fakestoreapi.com/products/categories')
             const data= await response.json()
             setCategorias(data)
             console.log(data)
-            setLoading(false)
-            
-
         }catch(error){
             alert(error)
 
@@ -22,22 +28,21 @@ export default function Categorias(){
     useEffect(()=>{
         getCategorias()
     },[])
-    if (loading){
-        return(
-            <h1>Cargando...</h1>)
-        }
+    
     return (
         <>
-            { categorias.map((elemento)=> (
-            <div>
-                <ul>
-                    <li>
-                    <Link to={`/categoria-producto/${elemento}`}>Ver productos en la categoria {elemento}</Link>
-                    </li>
-                </ul>
-                
-            </div>
-            ))}
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Categorías de Productos
+              </DropdownToggle>
+              <DropdownMenu right>
+              { categorias.map((elemento)=> (
+                <DropdownItem>
+                <Link to={`/categoria-producto/${elemento}`} value={elemento}>Ver productos en la categoria {elemento}</Link>
+                </DropdownItem>
+                ))} 
+              </DropdownMenu>
+            </UncontrolledDropdown>   
         </>
     );  
 }

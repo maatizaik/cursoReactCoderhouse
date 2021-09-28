@@ -1,7 +1,14 @@
 import {useState, useEffect} from 'react';
 import {collection, getDocs} from 'firebase/firestore';
 import {getData} from '../firebase/index';
-import {Link} from 'react-router-dom'
+
+import SpinnerComponent from '../components/spinner';
+
+import React from 'react';
+import {
+    Card, CardText, CardBody,
+    CardTitle, CardSubtitle,Button, Container, Row, NavLink
+  } from 'reactstrap';
 
 export default function Productos(){
     const [ productos, setProductos] = useState([])
@@ -26,20 +33,40 @@ export default function Productos(){
     },[])
     if (loading){
         return(
-            <h1>Cargando...</h1>)
+            <SpinnerComponent/>
+            )
         }
     return (
         <>
-        <div style={{ widht:'120px' }}>
-            { productos.map((elemento)=> (
-            <div style={{border: '1px solid black', margin:'1%', padding:"20%" }}>
-                <h3>Categoria Producto: {elemento.category}</h3>
-                <h3>Nombre Producto: {elemento.title}</h3>
-                <Link to={`/producto-detalle/${elemento.id}`}>Ver detalle del producto</Link>
+        <h1 style={{textAlign:'center', margin:'2%'}}>Listado de Productos</h1>
+        <Container justifyContent='space-around'>
+            <Row xs="1" sm="3" md="4">
                 
-            </div>
-            ))}
-        </div>
+            { productos.map((elemento)=> (
+                <>
+
+                    <div style={{width:"440px", height:"400px"}}>
+                        <Card  style={{ borderColor: '#333' }}>
+                            <img style={{width:"100px", height:"90px", margin:'10%', padding:'2%', }}   src={elemento.image} alt={elemento.description} />
+                            <CardBody>
+                            <h6 style={{fontSize:'1.1rem', textAlign:'center', justifyContent:'space-around'}}>{elemento.title}</h6>
+                            <CardSubtitle tag="h7" className="mb-2 text-muted">Precio: {elemento.price}</CardSubtitle>
+                            <CardText>Stock: {elemento.count}</CardText>
+                            <Button color='secondary' active><NavLink href={`/producto-detalle/${elemento.id}`}>Ver detalle del producto</NavLink></Button>
+                            </CardBody>
+                        </Card>
+                    </div>
+                </>))}
+            </Row>
+        </Container>
+
+
+           
+           
+        
         </>
     );  
 }
+
+
+

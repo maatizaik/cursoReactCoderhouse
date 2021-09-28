@@ -1,7 +1,8 @@
-import React, {useState, useContext} from 'react';
+   
+import React, {useContext} from 'react';
 import {Link, } from 'react-router-dom';
-import CartWidget from './cartWidget';
-import CartContext from '../context/context'
+import CartContext from '../context/context';
+import {Button, ButtonToggle} from 'reactstrap';
 
 
 
@@ -28,12 +29,6 @@ export default function ItemCount({onAdd, stock, items, initial, producto}){
         setCart(cleanCart);
         };
 
-    const removeItem = () => {
-        const cartBorrador = [...cart];
-        const cleanCart = cartBorrador.filter(elemento => elemento.id !== producto.id);
-        setCart(cleanCart);
-    }
-
     const sumar= ()=>{
         if( items < stock){
             onAdd(items +1);
@@ -52,23 +47,24 @@ export default function ItemCount({onAdd, stock, items, initial, producto}){
     return(
         <>
 
-        <div style={{display:'flex'}}>
-            <CartWidget/> 
+        <div style={{display:'flex', margin:'5%'}}>
             <h1>Enviar a Carrito {items}</h1>
         </div>
         <div>
             <div>
-                <button onClick={sumar}>Agregar a carrito</button>
-                <button onClick={restar}> Quitar de Carrito </button>
+                <Button onClick={sumar} style={{marginLeft:'2%'}}>Agregar a carrito</Button>
+                <Button onClick={restar} style={{marginLeft:'2%'}}> Quitar de Carrito </Button>
             </div>
-            {items>0&&<button onClick={addItem}>Terminar Compra</button>}
-            {<button onClick={addItem}><Link to="/carrito">Ir al carrito</Link></button>}
-            <button onClick={() => removeItem(producto.id)}>Quitar Producto del Carrito</button>
+            <br/>
+            <div>
+                {items>0&&<Button onClick={addItem} style={{marginLeft:'2%'}}>Terminar Compra</Button>}
+                {<ButtonToggle onClick={addItem} color='info' style={{marginLeft:'2%'}} active><Link to="/carrito">Ir al carrito</Link></ButtonToggle>}
+            </div>
+
+            
             
         </div>
         
         </>
     )
 }
-
-

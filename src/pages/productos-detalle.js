@@ -3,6 +3,8 @@ import {useEffect,useState} from 'react';
 import {doc, getDoc } from 'firebase/firestore';
 import {getData} from '../firebase/index';
 import ItemCount from '../components/itemCount';
+import SpinnerComponent from '../components/spinner';
+
 
 
 export default function ProductoDetalle(){
@@ -29,8 +31,8 @@ export default function ProductoDetalle(){
     },[])
     if (loading){
         return(
-            <h1>Cargando...</h1>)
-        }
+            <SpinnerComponent/>
+        )}
         
        
 
@@ -39,15 +41,19 @@ export default function ProductoDetalle(){
             
                 <Link to="/productos">Volver a Productos</Link>
                 <div>
-                    <h1 style={{margin:'2%'}}>Usted está viendo la categoría {producto.category}. Si quiere ver más productos de esta categoría presione<Link to={`/categoria-producto/${producto.category}`}> aquí</Link></h1>
+                    <div style={{margin:'2%'}}>
+                        <h1 >Usted está viendo la categoría {producto.category}. </h1>
+                        <h2>Si quiere ver más productos de esta categoría presione<Link to={`/categoria-producto/${producto.category}`}> aquí</Link></h2>
+                    </div>
+                    
                     <div style={{ display:'flex',border: '1px solid black', margin:'10px', padding:"10%"}}>
-                        <img src={producto.image} style={{width:'25%', height:'25%'}} />
+                        <img src={producto.image} style={{width:'25%', height:'25%'}} alt={producto.description}/>
                         <div style={{marginLeft:'12%'}}>
                             <h2>Producto: {producto.title}</h2>
                             <h3>Precio: ${producto.price}</h3>
-                            <h6>El stock del producto es: {producto.id+6}</h6>
-                            <p style={{widht:'30%',height:'25%', marginTop:'2%'}}>{producto.description}</p>
-                            <ItemCount items={items} onAdd={setItems} stock ={producto.id+6}  initial='0' producto={producto}/>
+                            <h6>El stock del producto es: {producto.count}</h6>
+                            <p style={{widht:'30%',height:'25%', marginTop:'2%', marginBottom:'2.5%'}}>{producto.description}</p>
+                            <ItemCount items={items} onAdd={setItems} stock ={producto.count}  initial='0' producto={producto} cantidadCart='0'/>
                         </div>
                     </div>
                 </div>

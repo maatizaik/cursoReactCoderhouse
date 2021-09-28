@@ -1,35 +1,41 @@
-import {Link} from 'react-router-dom';
-import React from 'react';
-import CartWidget from './cartWidget'
+import CartWidget from './cartWidget';
+import React, { useState} from 'react';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
+import Categorias from '../pages/categorias';
+
+
 
 function NavBar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
+
     return (
-      <div>
-        <nav classname="navbar navbar-expand-lg navbar-light bg-light">
-          <div classname="container-fluid">
-            <div classname="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div classname="navbar-nav">
-              <ul>
-            <li>
-              <Link to="/">Fake Store: Proyecto Tienda</Link>
-            </li>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/productos">Listado de Productos</Link>
-            </li>
-            <li>
-              <Link to="/categorias">Categorias</Link>
-            </li>
-            <li>
-                <Link to="carrito"><CartWidget/></Link>
-            </li>
-          </ul> 
-              </div>
-            </div>
-        </div>
-        </nav>
-      </div>)
+      <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">
+        FakeStore
+        </NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/productos">Listado de Productos</NavLink>
+            </NavItem>
+            <Categorias/>
+            <NavItem>
+              <CartWidget/>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+  );
 }
+
 export default NavBar;
